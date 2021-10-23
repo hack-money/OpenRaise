@@ -21,7 +21,7 @@ import {
 import { useEventListener } from "eth-hooks/events/useEventListener";
 import { useExchangeEthPrice } from "eth-hooks/dapps/dex";
 // import Hints from "./Hints";
-import { Dashboard, CreateNewVault, HistoricalVaults, Home } from "./views";
+import { Dashboard, CreateNewVault, LaunchRaise, Home } from "./views";
 
 // contracts
 import deployedContracts from "./contracts/hardhat_contracts.json";
@@ -445,9 +445,21 @@ function App(props) {
               }}
               to="/createVault"
             >
-              Create new vault
+              Create vault
             </Link>
           </Menu.Item>
+
+          <Menu.Item key="/launchRaise">
+            <Link
+              onClick={() => {
+                setRoute("/launchRaise");
+              }}
+              to="/launchRaise"
+            >
+              Launch raise
+            </Link>
+          </Menu.Item>
+
           <Menu.Item key="/dashboard">
             <Link
               onClick={() => {
@@ -456,16 +468,6 @@ function App(props) {
               to="/dashboard"
             >
               Dashboard
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="/historicalVaults">
-            <Link
-              onClick={() => {
-                setRoute("/historicalVaults");
-              }}
-              to="/historicalVaults"
-            >
-              Historical vaults
             </Link>
           </Menu.Item>
         </Menu>
@@ -529,8 +531,8 @@ function App(props) {
               setPurposeEvents={setPurposeEvents}
             />
           </Route>
-          <Route path="/historicalVaults">
-            <HistoricalVaults
+          <Route path="/launchRaise">
+            <LaunchRaise
               address={address}
               userSigner={userSigner}
               mainnetProvider={mainnetProvider}

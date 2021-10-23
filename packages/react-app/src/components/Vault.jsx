@@ -37,10 +37,10 @@ export default function Vault({ address, userSigner }) {
   };
 
   return (
-    <div style={{ padding: 16, width: 800, margin: "auto", marginBottom: 128 }}>
-      <div style={{ border: "1px solid #cccccc", padding: 16, width: 800, margin: "auto", marginBottom: 128 }}>
-        <h2>Vault creation</h2>
-        <h3>Provide the settings for vault creation and click 'Submit'!</h3>
+    <div style={{ padding: 16, width: 800, margin: "auto" }}>
+      <div style={{ border: "1px solid #cccccc", padding: 16, width: 800, margin: "auto" }}>
+        <h2>Create vault</h2>
+        <h3>Provide the details for vault creation and click 'Create'!</h3>
         <br />
         <br />
         <h3>Vault settings</h3>
@@ -176,8 +176,8 @@ export default function Vault({ address, userSigner }) {
             <InputNumber defaultValue={500}></InputNumber>
           </Form.Item>
         </Form>
-
-        <div>
+      </div>
+      <div>
           <Button
               style={{ 
                 marginTop: 50,
@@ -212,7 +212,6 @@ export default function Vault({ address, userSigner }) {
               Create
           </Button>
         </div>
-      </div>
     </div>
   );
 }
