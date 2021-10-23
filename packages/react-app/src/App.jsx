@@ -437,22 +437,22 @@ function App(props) {
               Create new vault
             </Link>
           </Menu.Item>
-          <Menu.Item key="/hints">
+          <Menu.Item key="/dashboard">
             <Link
               onClick={() => {
-                setRoute("/hints");
+                setRoute("/dashboard");
               }}
               to="/dashboard"
             >
               Dashboard
             </Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
+          <Menu.Item key="/historicalVaults">
             <Link
               onClick={() => {
-                setRoute("/exampleui");
+                setRoute("/historicalVaults");
               }}
-              to="/exampleui"
+              to="/historicalVaults"
             >
               Historical vaults
             </Link>
@@ -476,7 +476,7 @@ function App(props) {
               contractConfig={contractConfig}
             />
           </Route>
-          <Route path="/hints">
+          <Route path="/dashboard">
             <Hints
               address={address}
               yourLocalBalance={yourLocalBalance}
@@ -484,7 +484,7 @@ function App(props) {
               price={price}
             />
           </Route>
-          <Route path="/exampleui">
+          <Route path="/historicalVaults">
             <ExampleUI
               address={address}
               userSigner={userSigner}
