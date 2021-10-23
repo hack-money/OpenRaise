@@ -21,10 +21,11 @@ export default function Home({}) {
         </div>
         
         <div style={{ marginTop: 32 }}>
+        <Divider />
           <h3>The Problem</h3>
           <List>
-            The treasuries of decentralised autonomous organisations (DAOs) are growing ever larger in size. At the same time nearly all of the largest protocols hold the
-            entirety of their treasury in their native governance token. 
+            The treasuries of decentralised autonomous organisations (DAOs) are growing larger. 
+            And nearly all of the largest protocols hold the entirety of their treasury in their native governance token.
           </List>
           <br />
           <List>
@@ -33,26 +34,39 @@ export default function Home({}) {
           </List>
           <br />
           <List>
-            To finance these initiatives, the DAO will typically sell it's native governance token for another useful asset such as a stablecoin. This is undesirable as it
-            dramatically increases the supply of the native token on the market, putting significant downwards pressure on the native token price.
+            To finance these initiatives, the DAO will sell its native governance token for another useful asset such as a stablecoin.
+            This is undesirable as it dramatically increases the supply of the native token on the market, bringing its price down. 
             As an example, Sushi recently had to raise $16m on a $100m treasury for these purposes!
           </List>
           <br />
-          <List>
-            Instead, you want a mechanism whereby DAO priorities can be financed without having to sell treasury
-            governance tokens. Taking a loan against the treasury tokens via a Defi money lending protocol is not suitable - it exposes
-            the treasury to liquidation risk and potentially very significant interest rate swings.
-          </List>
           <br />
-
-          <h3>OpenRaise's solution</h3>
+          <Divider />
+          <h3>How OpenRaise solves this</h3>
           <List>
-            OpenRaise introduces a primitive loosely analogous to a SAFE note from traditional financing. 
+            Applying a venture-like approach, OpenRaise brings SAFE note financing to DAOs. With OpenRaise, investors are rewarded if the DAO is successful.
+            We achieve this by using UMA's Success Token.
           </List>
 
+          <List>
+            Applying a venture-like approach, OpenRaise brings SAFE note financing to DAOs. With OpenRaise, investors are rewarded if the DAO is successful.
+            We achieve this by using UMA's Success Token.
+          </List>
+
           <br />
-          <h3>Solution</h3>
-          <List>{/* TODO */}</List>
+          <h4>Wait, how does this work?</h4>
+
+          <List>
+            So a DAO wants to raise $100 in USDC, they sell a success token at the current price of their native token ($DAO), sets an expiry on the success token 
+            and a strike price. Let's say the native token trades at $50. For each $100USDC, the DAO sells 2 success tokens with a two-year expiry and a $60 strike
+            price. After two years, the success token redeems for 2 $DAO and the value of the $60 strike option (paid in $DAO).
+          </List>
+
+          <br />
+          <h4>Why is this good for DAOs?</h4>
+            <List>
+              DAOs are selling call options on their native tokens in return for downside protection, instead of potentially getting liquidated.
+              DAOs are betting on themselves by using OpenRaise.
+            </List>
         </div>
         <Divider />
       </div>
