@@ -1,4 +1,4 @@
-# DAO Treasury Liquidity
+# OpenRaise, SAFE notes for DAO's
 
 TLDR: Make your DAO treasury liquid and turn it into productive capital, without putting it at risk of liquidation in DeFi money lending protocols. 
 
