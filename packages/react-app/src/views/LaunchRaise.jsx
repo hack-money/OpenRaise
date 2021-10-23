@@ -58,7 +58,7 @@ export default function LaunchRaise({
         >
           <Form.Item
             name="collateralToken"
-            label="Num collateral tokens"
+            label="Num USDC tokens"
             rules={[
               {
                 required: true,
@@ -103,7 +103,7 @@ export default function LaunchRaise({
         >
           <Form.Item
             name="startWeights"
-            label="Start weight, Fair launch to Collateral"
+            label="Start weight, Fair launch to USDC"
             rules={[
               {
                 required: true,
@@ -122,7 +122,7 @@ export default function LaunchRaise({
 
           <Form.Item
             name="endWeight"
-            label="End weight, Fair launch to collateral"
+            label="End weight, Fair launch to USDC"
             rules={[
               {
                 required: true,
