@@ -17,7 +17,6 @@ export default function ExampleUI({
   writeContracts,
 }) {
   const [newPurpose, setNewPurpose] = useState("loading...");
-  
   return (
     <div>
       {/*
