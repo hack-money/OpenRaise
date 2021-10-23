@@ -1,24 +1,15 @@
-import { utils, ethers } from "ethers";
+import { formatBytes32String } from "@ethersproject/strings";
 import { Button, Input, Form, Select, InputNumber, Table, Radio } from "antd";
 import React, { useState, useEffect } from "react";
+import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
 
 export default function Vault({ address, userSigner }) {
+  const { sdk } = useSafeAppsSDK();
   const [pairName, setPairName] = useState('')
-  const [expirationTimeStamp, setExpirationTimeStamp] = useState('')
-  const [collateralPerPair, setCollateralPerPair] = useState('')
+  const [expirationTimestamp, setExpirationTimeStamp] = useState('')
   const [priceIdentifier, setPriceIdentifier] = useState('')
 
-  const [longSynthName, setLongSynthName] = useState('')
-  const [longSynthSymbol, setLongSynthSymbol] = useState('')
-
-  const [shortSynthName, setShortSynthName] = useState('')
-  const [shortSynthSymbol, setShortSynthSymbol] = useState('')
-
   const [collateralToken, setCollateralToken] = useState('')
-  const [prepaidProposerReward, setPrepaidProposerReward] = useState('')
-
-  const [optimisticOracleLivenessTime, setOptimisticOracleLivenessTime] = useState('')
-  const [optimisticOracleProposerBond, setOptimisticOracleProposerBond] = useState('')
 
   const [strikePrice, setStrikePrice] = useState('')
   const [basePercentage, setBasePercentage] = useState('')
@@ -70,7 +61,7 @@ export default function Vault({ address, userSigner }) {
             ]}
           >
             <Input 
-              placeholder="UMA Range Dai"
+              placeholder="DAO Success Token"
               onChange={value => {
                 setPairName(value);
               }}
@@ -96,20 +87,20 @@ export default function Vault({ address, userSigner }) {
           </Form.Item>
 
           <Form.Item
-            name="collateralPerPair"
-            label="Collateral per pair"
+            name="collateralToken"
+            label="Collateral token"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <InputNumber
-              defaultValue={20000}
+            <Input
+              placeholder="DAO"
               onChange={value => {
-                setCollateralPerPair(value);
+                setCollateralToken(value);
               }}
-              ></InputNumber>
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -122,146 +113,11 @@ export default function Vault({ address, userSigner }) {
             ]}
           >
             <Input
-              placeholder="Maker Oracle"
+              placeholder="DAOUSD"
               onChange={value => {
                 setPriceIdentifier(value);
               }}
               ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="longSynthName"
-            label="Long Synth Name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="UMARangeDai102"
-              onChange={value => {
-                setLongSynthName(value);
-              }}
-              ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="longSynthSymbol"
-            label="Long synth symbol"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="UD2"
-              onChange={value => {
-                setLongSynthSymbol(value);
-              }}
-              ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="shortSynthName"
-            label="Short synth name"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input 
-              placeholder="UMARangeDai101"
-              onChange={value => {
-                setShortSynthName(value);
-              }}
-              ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="shortSynthSymbol"
-            label="Short synth symbol"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="UD1"
-              onChange={value => {
-                setShortSynthSymbol(value);
-              }}
-              ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="collateralToken"
-            label="Collateral token"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="Dai"
-              onChange={value => {
-                setCollateralToken(value);
-              }}
-              ></Input>
-          </Form.Item>
-
-          <Form.Item
-            name="prepaidProposerReward"
-            label="Prepaid proposer reward"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <InputNumber
-              defaultValue={800}
-              onChange={value => {
-                setPrepaidProposerReward(value);
-              }}></InputNumber>
-          </Form.Item>
-
-          <Form.Item
-            name="optimisticOracleLivenessTime"
-            label="Optimistic oracle liveness time"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <InputNumber
-              defaultValue={120}
-              onChange={value => {
-                setOptimisticOracleLivenessTime(value);
-              }}
-              ></InputNumber>
-          </Form.Item>
-
-          <Form.Item
-            name="optimisticOracleProposerBond"
-            label="Optimistic oracle proposer bond"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <InputNumber
-              defaultValue={300}
-              onChange={value => {
-                setOptimisticOracleProposerBond(value);
-              }}
-              ></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -330,6 +186,26 @@ export default function Vault({ address, userSigner }) {
                 backgroundColor: '#FFBE0B'
               }}
               onClick={() => {
+                // TODO: add FPL
+                const financialProductLibrary = "0x000000000000000000000000000000000"
+                const params = {
+                  pairName,
+                  expirationTimestamp,
+                  collateralPerPair: 1000,
+                  priceIdentifier: formatBytes32String(priceIdentifier),
+                  longSynthName: `${pairName}-Long`,
+                  longSynthSymbol: "OpenLONG",
+                  shortSynthName: `${pairName}-Short`,
+                  shortSynthSymbol: "OpenSHORT",
+                  collateralToken,
+                  financialProductLibrary,
+                  customAncillaryData: "0x",
+                  prepaidProposerReward: 0,
+                  optimisticOracleLivenessTime: 7200,
+                  optimisticOracleProposerBond: 200,
+              }
+
+              console.log(params)
                 // TODO: Use Safe SDK to send a transaction
               }}
             >

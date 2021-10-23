@@ -16,6 +16,5 @@ export default function CreateNewVault({
   readContracts,
   writeContracts,
 }) {
-  const [newPurpose, setNewPurpose] = useState("loading...");
-  return <Vault />
+  return <Vault />;
 }

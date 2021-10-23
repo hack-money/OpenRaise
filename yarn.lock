@@ -2509,6 +2509,13 @@
     "@gnosis.pm/safe-apps-sdk" "5.0.0"
     events "^3.3.0"
 
+"@gnosis.pm/safe-apps-react-sdk@^4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-apps-react-sdk/-/safe-apps-react-sdk-4.0.5.tgz#8443b8687583beb5ee3fcfeaa05dd3e720001998"
+  integrity sha512-DaUr0loy/hvhtYn9EPla8GynkbmBifsNn05TXCRiju1QDO2luIqPSfV/OEMjoFCk5ljkXv+HQlxU0dsymDtCeg==
+  dependencies:
+    "@gnosis.pm/safe-apps-sdk" "5.0.0"
+
 "@gnosis.pm/safe-apps-sdk@5.0.0", "@gnosis.pm/safe-apps-sdk@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@gnosis.pm/safe-apps-sdk/-/safe-apps-sdk-5.0.0.tgz#41fbd7084f05cc5ec79fd29bb570292c9ce9fa70"
