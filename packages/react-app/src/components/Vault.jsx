@@ -3,6 +3,26 @@ import { Button, Input, Form, Select, InputNumber, Table, Radio } from "antd";
 import React, { useState, useEffect } from "react";
 
 export default function Vault({ address, userSigner }) {
+  const [pairName, setPairName] = useState('')
+  const [expirationTimeStamp, setExpirationTimeStamp] = useState('')
+  const [collateralPerPair, setCollateralPerPair] = useState('')
+  const [priceIdentifier, setPriceIdentifier] = useState('')
+
+  const [longSynthName, setLongSynthName] = useState('')
+  const [longSynthSymbol, setLongSynthSymbol] = useState('')
+
+  const [shortSynthName, setShortSynthName] = useState('')
+  const [shortSynthSymbol, setShortSynthSymbol] = useState('')
+
+  const [collateralToken, setCollateralToken] = useState('')
+  const [prepaidProposerReward, setPrepaidProposerReward] = useState('')
+
+  const [optimisticOracleLivenessTime, setOptimisticOracleLivenessTime] = useState('')
+  const [optimisticOracleProposerBond, setOptimisticOracleProposerBond] = useState('')
+
+  const [strikePrice, setStrikePrice] = useState('')
+  const [basePercentage, setBasePercentage] = useState('')
+
   const { Option } = Select;
   const formItemLayout = {
     labelCol: {
@@ -49,7 +69,13 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="UMA Range Dai"></Input>
+            <Input 
+              placeholder="UMA Range Dai"
+              onChange={value => {
+                setPairName(value);
+              }}
+              >
+              </Input>
           </Form.Item>
 
           <Form.Item
@@ -61,7 +87,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="23/12/2023"></Input>
+            <Input
+              placeholder="23/12/2023"
+              onChange={value => {
+                setExpirationTimeStamp(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -73,7 +104,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={20000}></InputNumber>
+            <InputNumber
+              defaultValue={20000}
+              onChange={value => {
+                setCollateralPerPair(value);
+              }}
+              ></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -85,7 +121,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="Maker Oracle"></Input>
+            <Input
+              placeholder="Maker Oracle"
+              onChange={value => {
+                setPriceIdentifier(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -97,7 +138,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="UMARangeDai102"></Input>
+            <Input
+              placeholder="UMARangeDai102"
+              onChange={value => {
+                setLongSynthName(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -109,7 +155,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="UD2"></Input>
+            <Input
+              placeholder="UD2"
+              onChange={value => {
+                setLongSynthSymbol(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -121,7 +172,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="UMARangeDai101"></Input>
+            <Input 
+              placeholder="UMARangeDai101"
+              onChange={value => {
+                setShortSynthName(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -133,7 +189,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="UD1"></Input>
+            <Input
+              placeholder="UD1"
+              onChange={value => {
+                setShortSynthSymbol(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -145,7 +206,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <Input placeholder="Dai"></Input>
+            <Input
+              placeholder="Dai"
+              onChange={value => {
+                setCollateralToken(value);
+              }}
+              ></Input>
           </Form.Item>
 
           <Form.Item
@@ -157,7 +223,11 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={800}></InputNumber>
+            <InputNumber
+              defaultValue={800}
+              onChange={value => {
+                setPrepaidProposerReward(value);
+              }}></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -169,7 +239,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={120}></InputNumber>
+            <InputNumber
+              defaultValue={120}
+              onChange={value => {
+                setOptimisticOracleLivenessTime(value);
+              }}
+              ></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -181,7 +256,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={300}></InputNumber>
+            <InputNumber
+              defaultValue={300}
+              onChange={value => {
+                setOptimisticOracleProposerBond(value);
+              }}
+              ></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -193,7 +273,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={23}></InputNumber>
+            <InputNumber
+              defaultValue={23}
+              onChange={value => {
+                setStrikePrice(value);
+              }}
+              ></InputNumber>
           </Form.Item>
 
           <Form.Item
@@ -205,7 +290,12 @@ export default function Vault({ address, userSigner }) {
               },
             ]}
           >
-            <InputNumber defaultValue={10}></InputNumber>
+            <InputNumber
+              defaultValue={10}
+              onChange={value => {
+                setBasePercentage(value);
+              }}
+              ></InputNumber>
           </Form.Item>
         </Form>
         
