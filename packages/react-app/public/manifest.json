@@ -1,7 +1,12 @@
 {
   "short_name": "DAOTreasuryLiquidity",
-  "start_url": ".",
   "name": "DAOTreasuryLiquidity",
+  "description": "DAO treasury app",
+  "iconPath": "logo512.png",
+  "providedBy": {
+    "name": "Example organization",
+    "url": "https://example_organization.com"
+  },
   "icons": [
     {
       "src": "favicon.ico",
