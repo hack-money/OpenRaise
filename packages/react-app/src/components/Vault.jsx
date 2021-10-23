@@ -2,6 +2,10 @@ import { formatBytes32String } from "@ethersproject/strings";
 import { Button, Input, Form, Select, InputNumber, Table, Radio } from "antd";
 import React, { useState, useEffect } from "react";
 import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
+import {Interface} from "@ethersproject/abi"
+import { erc20ABI, lspFactoryAbi} from "./abi"
+
+const collateralPerPair = 1000;
 
 export default function Vault({ address, userSigner }) {
   const { sdk } = useSafeAppsSDK();
@@ -11,8 +15,10 @@ export default function Vault({ address, userSigner }) {
 
   const [collateralToken, setCollateralToken] = useState('')
 
-  const [strikePrice, setStrikePrice] = useState('')
-  const [basePercentage, setBasePercentage] = useState('')
+  const [strikePrice, setStrikePrice] = useState(23)
+  const [basePercentage, setBasePercentage] = useState(40)
+
+  const [tokensToDeposit, setTokensToDeposit] = useState(5000)
 
   const { Option } = Select;
   const formItemLayout = {
@@ -52,7 +58,7 @@ export default function Vault({ address, userSigner }) {
           initialValues={{ assetType: "eth" }}
         >
           <Form.Item
-            name="pairName"
+            name="lsppairName"
             label="Pair name"
             rules={[
               {
@@ -80,8 +86,8 @@ export default function Vault({ address, userSigner }) {
           >
             <Input
               placeholder="23/12/2023"
-              onChange={value => {
-                setExpirationTimeStamp(value);
+              onChange={event => {
+                setExpirationTimeStamp(event.target.value);
               }}
               ></Input>
           </Form.Item>
@@ -97,8 +103,8 @@ export default function Vault({ address, userSigner }) {
           >
             <Input
               placeholder="DAO"
-              onChange={value => {
-                setCollateralToken(value);
+              onChange={event => {
+                setCollateralToken(event.target.value);
               }}
               ></Input>
           </Form.Item>
@@ -130,9 +136,9 @@ export default function Vault({ address, userSigner }) {
             ]}
           >
             <InputNumber
-              defaultValue={23}
+              defaultValue={strikePrice}
               onChange={value => {
-                setStrikePrice(value);
+                setStrikePrice(parseFloat(value));
               }}
               ></InputNumber>
           </Form.Item>
@@ -147,9 +153,9 @@ export default function Vault({ address, userSigner }) {
             ]}
           >
             <InputNumber
-              defaultValue={10}
+              defaultValue={basePercentage}
               onChange={value => {
-                setBasePercentage(value);
+                setBasePercentage(parseFloat(value));
               }}
               ></InputNumber>
           </Form.Item>
@@ -158,22 +164,26 @@ export default function Vault({ address, userSigner }) {
         <br />
         <br />
         <br />
-        <h3>Tokens to mint</h3>
+        <h3>Tokens to deposit</h3>
         
         <Form
           {...formItemLayout}
           form={form}
         >
           <Form.Item 
-            name="tokensToMint"
-            label="Num tokens to mint"
+            name="numtokensToDeposit"
+            label="Number of tokens to deposit"
             rules={[
               {
                 required: true,
               },
             ]}
           >
-            <InputNumber defaultValue={500}></InputNumber>
+            <InputNumber
+              defaultValue={tokensToDeposit}
+              onChange={value => {
+                setTokensToDeposit(parseFloat(value));
+              }}></InputNumber>
           </Form.Item>
         </Form>
       </div>
@@ -185,13 +195,12 @@ export default function Vault({ address, userSigner }) {
                 height: 100,
                 backgroundColor: '#FFBE0B'
               }}
-              onClick={() => {
-                // TODO: add FPL
-                const financialProductLibrary = "0x000000000000000000000000000000000"
+              onClick={async () => {
+                const financialProductLibrary = "0x0000000000000000000000000000000000000000"
                 const params = {
                   pairName,
                   expirationTimestamp,
-                  collateralPerPair: 1000,
+                  collateralPerPair,
                   priceIdentifier: formatBytes32String(priceIdentifier),
                   longSynthName: `${pairName}-Long`,
                   longSynthSymbol: "OpenLONG",
@@ -205,8 +214,26 @@ export default function Vault({ address, userSigner }) {
                   optimisticOracleProposerBond: 200,
               }
 
-              console.log(params)
-                // TODO: Use Safe SDK to send a transaction
+              console.log( [params, strikePrice, basePercentage, tokensToDeposit * collateralPerPair])
+
+              const lspFactoryAddress = "0x8df04d551e3f7f5b03a67de79184bb919a97bbde"
+              const erc20Interface = new Interface(erc20ABI)
+              const lspFactoryInterface = new Interface(lspFactoryAbi)
+
+              const txs = [
+                {
+                  to: collateralToken,
+                  data: erc20Interface.encodeFunctionData("approve", [lspFactoryAddress, tokensToDeposit]),
+                  value: "0"
+                },
+                {
+                  to: lspFactoryAddress,
+                  data: lspFactoryInterface.encodeFunctionData("createLongShortPairAndMint", [params, strikePrice, basePercentage, tokensToDeposit * collateralPerPair]),
+                  value: "0"
+                }
+              ]
+
+              await sdk.txs.send({txs})
               }}
             >
               Create
