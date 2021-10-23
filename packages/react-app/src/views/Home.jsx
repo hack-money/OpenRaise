@@ -1,4 +1,4 @@
-import { Card, Divider, List } from "antd";
+import { Divider, List } from "antd";
 import OpenRaise from '../images/OpenRaise.png'
 import React from "react";
 
@@ -17,31 +17,37 @@ export default function Home({}) {
         
         <div style={{marginTop: 50}}>
           <h1>OpenRaise</h1>
+          <h2 style={{color: 'grey' }}>SAFE notes for DAOs</h2>
         </div>
         
         <div style={{ marginTop: 32 }}>
-          <h3>Problem</h3>
+          <h3>The Problem</h3>
           <List>
-            DAO treasuries are growing ever larger in size. DAO's often have a need to deploy this capital for
-            productive purposes, such as in paying engineers, funding grants programmes etc.
+            The treasuries of decentralised autonomous organisations (DAOs) are growing ever larger in size. At the same time nearly all of the largest protocols hold the
+            entirety of their treasury in their native governance token. 
           </List>
           <br />
           <List>
-            Typically, DAO treasury governance tokens are sold to finance these initiatives. This puts downwards
-            pressure on the price + nobody wants to sell their own governance tokens!
+            DAO's routinely have a need to deploy this capital for productive purposes. These can include anything from paying engineers and 
+            contributors, to funding community grant programmes.
+          </List>
+          <br />
+          <List>
+            To finance these initiatives, the DAO will typically sell it's native governance token for another useful asset such as a stablecoin. This is undesirable as it
+            dramatically increases the supply of the native token on the market, putting significant downwards pressure on the native token price.
+            As an example, Sushi recently had to raise $16m on a $100m treasury for these purposes!
           </List>
           <br />
           <List>
             Instead, you want a mechanism whereby DAO priorities can be financed without having to sell treasury
-            governance tokens.
+            governance tokens. Taking a loan against the treasury tokens via a Defi money lending protocol is not suitable - it exposes
+            the treasury to liquidation risk and potentially very significant interest rate swings.
           </List>
           <br />
 
-          <h3>Why not put the DAO treasury in a money lending protocol and take out a loan?</h3>
+          <h3>OpenRaise's solution</h3>
           <List>
-            There is a risk of liquidation if the governance token price changes! Given the size of many treasuries
-            this is a significant risk + there is overhead in having to actively monitor the health factor of
-            positions.
+            OpenRaise introduces a primitive loosely analogous to a SAFE note from traditional financing. 
           </List>
 
           <br />
