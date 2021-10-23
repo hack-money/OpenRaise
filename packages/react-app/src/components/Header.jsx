@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Header() {
   return (
-    <a href="https://github.com/austintgriffith/scaffold-eth" target="_blank" rel="noopener noreferrer">
+    <div>
       <img
         src={OpenRaiseImage}
         width={50}
@@ -20,6 +20,6 @@ export default function Header() {
         subTitle="SAFE notes for DAOs"
         style={{ cursor: "pointer" }}
       />
-    </a>
+      </div>
   );
 }
